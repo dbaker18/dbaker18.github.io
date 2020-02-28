@@ -8,17 +8,27 @@
              background-color: blueviolet;
              color:beige;
              margin: 20px;
-             padding: 1%;
+             padding: 1%;}
+         .name{
+             align-self: flex-start;
+         }
+         .image{
+            align-self: flex-end;
+            display: block;
+            height: 90px;
+            padding-top: 20.15px;
+            padding-left: 5%;
+            padding-right: 5%;
              
          }
-         header img {
+         /*header img {
             display: block;
             height: 90px;
             padding-top: 20.15px;
             padding-left: 5%;
             padding-right: 5%;
             
-        }
+        }*/
          header {
             margin-bottom: 10px;
             display: flex;
@@ -39,8 +49,8 @@
  <body>
      <div class="header">
          <header>
-         <div style="align-self: flex-start">;<h1>Drew Baker</h1></div>
-         <div style="align-self: flex-end">;<img src="Testudo.jpg"></div>
+            <div class="name"><h1>Drew Baker</h1></div>
+            <div class="image"><img src="Testudo.jpg"></div>
         </header>
      </div>
  </body>
