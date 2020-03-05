@@ -40,7 +40,8 @@
         custom_header.innerHTML = name + '\'s Lab 4 ' + name_len;
 
         let p_1 = document.createElement("P");
-        p_1.innerText = "My name has " + name_len + " characters";
+        let p_1_text = "My name has " + name_len + " characters";
+        p_1.appendChild(p_1_text);
         document.getElementsByClassName("content")[0].appendChild(p_1);
         /*  document.body.appendChild(p_1);*/
       }
