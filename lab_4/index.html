@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Prof A's Demo Page</title>
+    <title>Drew Baker's Lab4</title>
     <link rel="stylesheet" type="text/css" href="./style.css" />
   </head>
 
   <body>
     <div class="container">
       <div class="wrapper">
-        <div class="top">Prof A's Demo Page</div>
+        <div class="top">Drew Baker's Lab 4</div>
         <button class="activate" onclick="clickMe()">
           Click me to make a change
         </button>
@@ -26,9 +26,24 @@
     </div>
     <script>
       function clickMe() {
-        const content = document.querySelector(".content");
-        content.innerHTML = "Hello world";     
+        let name = 'Drew Baker';
+        let fname = name.slice(0,4);
+        let lname = name.slice(5,10);
+        let name_len = name.length;
+        let third_char = fname[2].toUpperCase;
+        let last_three = lname.slice(8,10);
+
+        const custom_header = document.querySelector('.header');
+        const content = document.querySelector('.content');
+        
+        content.innerHTML = "Hello World";
+        custom_header.innerHTML = name + '\'s Lab 4 ' + name_len;
+
+        let p_1 = document.createElement("P");
+        p_1.innerText = "My name has " + name_len + " characters";
+        document.body.appendChild(p_1);
       }
+
     </script>
   </body>
 </html>
