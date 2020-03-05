@@ -41,7 +41,8 @@
 
         let p_1 = document.createElement("P");
         p_1.innerText = "My name has " + name_len + " characters";
-        document.body.appendChild(p_1);
+        document.getElementsByClassName("content")[0].appendChild(p_1);
+        /*  document.body.appendChild(p_1);*/
       }
 
     </script>
