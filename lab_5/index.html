@@ -262,14 +262,14 @@
         { name: "Zimbabwe", code: "ZW" }
       ];
       console.log("List of countries in the world", countries);
-      // i wrote
-      let list = document.createElement("ol");
-      let list_element = document.createElement("li", countries.name[0]);
-      list.appendChild(list_element);
-      //
-      const content = document.querySelector(".content");
-      content.innerHTML = list;
 
+      const content = document.querySelector(".content");
+      content.innerHTML = ""; 
+      
+      // i wrote
+      const ordered_list = document.createElement("ol");
+      ordered_list.className = "countries";
+      //
       const entry = `<strong>${thing}</strong> ${thing2}`;
 
       const sample = {name: "bali", code: 'ba'};
@@ -305,8 +305,20 @@
       // alternative:
       console.log(countries);
 
+      //i filled in this function for #4, assuming thats why its here.
       function clickFunction() {
-        
+      const rand_countries = [];
+      
+      for(let i = 0; i < 25; i++){
+        let selected_item = countries[Math.floor(Math.random()*countries.length)];
+        rand_countries.push(selected_item);
+      }
+
+      for(let i = 0; i < 25; i++){
+        const list_item = document.createElement("li");
+        list_item.innerHTML = `<strong>${rand_countries[i].code}</strong> ${rand_countries[i].name}`;
+        ordered_list.appendChild(list_item);
+      }
       }
 
       button.addEventListener("click", clickFunction());
