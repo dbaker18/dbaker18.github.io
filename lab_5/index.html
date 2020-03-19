@@ -265,9 +265,10 @@
       // i wrote
       let list = document.createElement("ol");
       let list_element = document.createElement("li", countries.name[0]);
+      list.appendChild(list_element);
       //
       const content = document.querySelector(".content");
-      content.innerHTML = "test";
+      content.innerHTML = list;
 
       const entry = `<strong>${thing}</strong> ${thing2}`;
 
