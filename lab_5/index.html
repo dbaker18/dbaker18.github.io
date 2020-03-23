@@ -307,7 +307,25 @@
 
       //i filled in this function for #4, assuming thats why its here.
       function clickFunction() {
-      const rand_countries = [];
+      /* const rand_countries = [];
+      
+      for(let i = 0; i < 25; i++){
+        let selected_item = countries[Math.floor(Math.random()*countries.length)];
+        rand_countries.push(selected_item);
+      }
+
+      for(let i = 0; i < 25; i++){
+        const list_item = document.createElement("li");
+        list_item.innerHTML = `<strong>${rand_countries[i].code}</strong> ${rand_countries[i].name}`;
+        ordered_list.appendChild(list_item);
+      } */
+      }
+
+      button.addEventListener("click", clickFunction());
+
+      const btn = document.querySelector('button');
+      btn.onclick = function(){
+        const rand_countries = [];
       
       for(let i = 0; i < 25; i++){
         let selected_item = countries[Math.floor(Math.random()*countries.length)];
@@ -320,9 +338,6 @@
         ordered_list.appendChild(list_item);
       }
       }
-
-      button.addEventListener("click", clickFunction());
-
     </script>
   </body>
 </html>
