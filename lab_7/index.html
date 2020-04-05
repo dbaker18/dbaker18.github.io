@@ -53,7 +53,10 @@
         ).addTo(mymap);
 
         //const marker1 = L.marker([51.5, -0.09]).addTo(mymap);  
+        const marker1_string = "<b> Hornbake </b>";
         const marker1 = L.marker([38.9881, -76.9416]).addTo(mymap);
+        marker1.bindPopup(marker1_string).openPopup();
+        
         const marker2 = L.marker([50.0, -76.9]).addTo(mymap);
     </script>
   </body>
