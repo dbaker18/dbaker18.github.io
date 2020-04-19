@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <title>Replace Me With Your Lab Page</title>
-  <link rel="stylesheet" type="text/css" href="./styles.css">
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-</head>
-
-<body>
-  <div class="container">
-    <div class="wrapper">
-      <div class="header">Replace Me With Your Lab Page</div>
-      <div class="content"></div>
-      <div class="footer"></div>
+  <head>
+    <title>Charts Lab</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">Frontend Libraries: Charts Lab</div>
+        <div class="content">
+          <div id="chartContainer"> </div>
+        </div>
+        <div class="footer">Let's eat out in the future!</div>
+      </div>
     </div>
-  </div>
-  <script>
-    fetch('/api') // Rather than fetching from PG County, we're going to fetch from our own server.
-      .then(res => res.json())
-      .then(res => {
+    
+    <script>
+      //Completed code given by a classmate 
 
-        return res;
-      })
-      .then(res => {
+      fetch(" https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json") // replace this with the food safety data set
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          const clearEmptyData = data.filter((f) => f.geocoded_column_1);
+          const refined = clearEmptyData.map((m) => ({
+            category: m.category,
+            name: m.name,
+            latLong: m.geocoded_column_1.coordinates,
+          }));
+          return refined;
+        }) // this is an "implicit return" - we're returning the results of the Fetch request to the next step.
+        .then((data) => {
+          // this is an explicit return. If I want my information to go further, I'll need to use the "return" keyword before the brackets close
+          return data.reduce((c, current) => {
+            if (!c[current.category]) {
+              c[current.category] = [];
+            }
+            c[current.category].push(current);
+            return c;
+          }, {});
+        })
+        .then((data) => {
+          console.log("new data", data);
+          const reformattedData = Object.entries(data).map((m) => {
+            console.log(m);
+            return {
+              y: m[1].length,
+              name: m[0],
+            };
+          });
 
-        //given by classmate
-        const chart = new CanvasJS.Chart("chartContainer", {
+          return reformattedData;
+        })
+        .then((results) => {
+          console.log(results);
+          const chart = new CanvasJS.Chart("chartContainer", {
             exportEnabled: true,
             animationEnabled: true,
             title: {
@@ -40,14 +69,13 @@
                 type: "pie",
 		            toolTipContent: "{name}" + " {y}",
 		            indexLabel: "{name}" + " {y}",            
-                dataPoints: res,
+                dataPoints: results,
               },
             ],
           });
           chart.render();
-        // Here's where your chart code should go.
-      })
-  </script>
-</body>
-
+        });
+    </script>
+  </body>
 </html>
+ 
