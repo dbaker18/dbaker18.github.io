@@ -1,94 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Charts Lab</title>
-    <link rel="stylesheet" type="text/css" href="./styles.css" />
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-  </head>
 
-  <body>
-    <div class="container">
-      <div class="wrapper">
-        <div class="header">Frontend Libraries: Charts Lab</div>
-        <div class="content">
-          When your lab is done, this should be replaced with a useful chart full of food data.
-        </div>
-        <div class="footer">Let's eat out in the future!</div>
-      </div>
+<head>
+  <title>Replace Me With Your Lab Page</title>
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <div class="header">Replace Me With Your Lab Page</div>
+      <div class="content"></div>
+      <div class="footer"></div>
     </div>
-    <script>
-      fetch(' https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json') // replace this with the food safety data set
-      .then((response) => response.json())
-      .then((data)=> {
-        console.log(data);
-        const clearEmptyData = data.filter((f) => f.geocoded_column_1);
-        const refined = clearEmptyData.map((m) => ({
-          category: m.category,
-          name: m.name,
-          latLong: m.geocoded_column_1.coordinates,
-        }));
-        return refined;
-      })
-      
-      .then((data) => {
-        return data.reduce((c, current) => {
-          if(!c[current.category]) {
-            c[current.category] = [];
-          }
-          c[current.category].push(current);
-          return c;
-        }, {});
-      })
-      .then((data) => {
-        consonle.log('new data', data);
-        const reformattedData =Object.entries(data).map((m,i) => {
-          console.log(m);
-          return {
-            y: m[1].length,
-            label: m[0]
-          };
-        });
+  </div>
+  <script>
+    fetch('/api') // Rather than fetching from PG County, we're going to fetch from our own server.
+      .then(res => res.json())
+      .then(res => {
 
-        return reformattedData;
+        return res;
       })
-      .then((results) => {
+      .then(res => {
+
+        //given by classmate
         const chart = new CanvasJS.Chart("chartContainer", {
-          animationEnabled: true,
-          title: {
-            text: "Let's Find Somewhere To Eat",
-          },
-          axixX: {
-            labelFontSize: 8,
-            margin: 10,
-            interval: 1,
-          },
-          axisY: {
-            scaleBreaks: {
-              customBreaks: [
-                {
-                  startValue: 20,
-                  endValue: 35,
-                },
-                {
-                  startValue: 10,
-                  endValue: 120,
-                },
-                {
-                  startValue: 160,
-                  endValue: 220,
-                },
-              ],
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+              text: "Lets Find Somewhere to Eat",
             },
-          },
-          data: [
-            {
-              type: "bar",
-              dataPoints: results
+            legend: {
+              cursor: "pointer",
             },
-          ],
-        });
-        chart.render();
-      });
-    </script>
-  </body>
+            data: [
+              {
+                type: "pie",
+		            toolTipContent: "{name}" + " {y}",
+		            indexLabel: "{name}" + " {y}",            
+                dataPoints: res,
+              },
+            ],
+          });
+          chart.render();
+        // Here's where your chart code should go.
+      })
+  </script>
+</body>
+
 </html>
