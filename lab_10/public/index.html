@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Methods - Post and Put Lab</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -28,31 +28,67 @@ Default text says what?
     </div>
     <script>
       function sendForm(e) {
-        e.preventDefault(); // this prevents your page reloading on button click
-        const target = document.querySelector("#labForm");
-        const btn = document.querySelector("#formBtn");
+  e.preventDefault(); // this prevents your page reloading on button click
 
-        const formToSend = new FormData(target);
+  const target = document.querySelector("#labForm");
+  const btn = document.querySelector("#formBtn");
 
-        fetch("/api", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(Object.fromEntries(formToSend)),
-        })
-          .then((data) => data.text()) // note: we didn't send JSON, so there's no JSON to get.
-          .then((txtresponse) => {
-            console.log(txtresponse);
-            btn.setAttribute("disabled", true);
-            const br = document.createElement("br");
-            target.append(br);
-            target.append(`${txtresponse}`);
-          });
-      }
+  const formToSend = new FormData(target);
 
-      const formBtn = document.querySelector("#formBtn");
-      formBtn.addEventListener("click", sendForm);
+  fetch("/api", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(Object.fromEntries(formToSend)),
+  })
+    .then((data) => data.json())
+    .then((txtresponse) => {
+      console.log(txtresponse);
+      btn.setAttribute("disabled", true);
+      const br = document.createElement("br");
+      target.append(br);
+      target.append(`${txtresponse}`);
+    });
+}
+
+function getForm(e) {
+  e.preventDefault();
+
+  const target = document.querySelector("#labForm");
+  const btn = document.querySelector("#resBtn");
+
+  fetch("/api", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((data) => data.json())
+
+    .then((formresponse) => {
+
+      console.log(formresponse);
+      btn.setAttribute("disabled", true);
+
+      const lb = document.createElement("label");
+      lb.append("Responses");
+      target.append(lb);
+
+      const ol = document.createElement("ol");
+      formresponse.forEach((response) => {
+        const li = document.createElement("li");
+        li.innerText = `${response.name}; ${response.zip}; ${response.interests}`;
+        ol.append(li);
+      });
+      target.append(ol);
+    });
+}
+const formBtn = document.querySelector("#formBtn");
+formBtn.addEventListener("click", sendForm);
+
+const resBtn = document.querySelector("#resBtn");
+resBtn.addEventListener("click", getForm);
     </script>
   </body>
 </html>
