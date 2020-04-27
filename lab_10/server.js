@@ -50,6 +50,7 @@ app.use(express.static("public"));
     }
   }
 
+  //CODE HELP FROM CLASSMATE
   app
   .route("/api")
   .get((req, res) => {
